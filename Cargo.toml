@@ -11,10 +11,10 @@ edition = "2018"
 # Crate to aid testing by placing built binaries on the path.
 assert_cmd = "2.0.0"
 
-# [[bin]]
-# name = "true"
-# path = "src/bin/true.rs"
+[[bin]]
+name = "truer"
+path = "src/bin/truer.rs"
 
-# [[bin]]
-# name = "false"
-# path = "src/bin/false.rs"
+[[bin]]
+name = "falser"
+path = "src/bin/falser.rs"
