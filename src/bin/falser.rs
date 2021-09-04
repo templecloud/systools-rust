@@ -1,4 +1,4 @@
 fn main() {
-    // std::process::exit(1);
-    std::process::abort();
+    std::process::exit(1);
+    // std::process::abort();
 }

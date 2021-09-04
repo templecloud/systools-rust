@@ -8,5 +8,6 @@ test_falser:
 
 .PHONY: test_echor
 test_echor:
-	cargo run --bin echor -- -r Echoing!
+	# cargo run --bin echor -- -r Echoing!
+	cargo run --bin echor -- -h
 

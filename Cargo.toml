@@ -10,8 +10,10 @@ edition = "2018"
 clap = "2.23"
 
 [dev-dependencies]
-# Crate to aid testing by placing built binaries on the path.
+# Integration testing for executable binaries.
 assert_cmd = "2.0.0"
+# Unit testing 
+predicates = "1"
 
 
 [[bin]]
