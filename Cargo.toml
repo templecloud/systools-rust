@@ -13,7 +13,9 @@ clap = "2.23"
 # Integration testing for executable binaries.
 assert_cmd = "2.0.0"
 # Unit testing 
-predicates = "1"
+predicates = "2.0.2"
+
+rand = "0.8"
 
 
 [[bin]]
@@ -27,3 +29,7 @@ path = "src/bin/falser.rs"
 [[bin]]
 name = "echor"
 path = "src/bin/echor.rs"
+
+[[bin]]
+name = "catr"
+path = "src/bin/catr.rs"
