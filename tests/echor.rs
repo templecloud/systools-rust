@@ -1,6 +1,8 @@
 use assert_cmd::Command;
 use predicates::prelude::*;
 
+type TestResult = Result<(), Box<dyn std::error::Error>>;
+
 #[test]
 fn test_no_args_error() {
     let mut cmd = Command::cargo_bin("echor").unwrap();
@@ -8,8 +10,6 @@ fn test_no_args_error() {
         .failure()
         .stderr(predicate::str::contains("USAGE"));
 }
-
-type TestResult = Result<(), Box<dyn std::error::Error>>;
 
 #[test]
 fn test_args_ok() -> TestResult {
@@ -63,6 +63,5 @@ fn test_version_opt_ok() -> TestResult {
 fn test_h_opt_ok() -> TestResult {
     let mut cmd = Command::cargo_bin("echor")?;
     cmd.arg("-h").assert().success().stdout(predicate::ne(""));
-
     Ok(())
 }

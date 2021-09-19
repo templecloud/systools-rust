@@ -1,4 +1,6 @@
 use std::error::Error;
+use std::fs::File;
+use std::io::{self, BufRead, BufReader};
 
 use clap::{App, Arg};
 
@@ -12,7 +14,32 @@ pub struct Config {
 }
 
 pub fn run(config: Config) -> ErrorResult<()> {
-    dbg!(config);
+    // dbg!(config);
+    for filename in config.files {
+        match open(&filename) {
+            Err(err) => eprintln!("Failed to open {}: {}", filename, err),
+            Ok(fd) => {
+                let br = BufReader::new(fd);
+                let mut last_num = 0;
+
+                for (num, line) in br.lines().enumerate() {
+                    let line = line?;
+                    if config.number_lines {
+                        println!("{:>6}\t{}", num + 1, line);
+                    } else if config.number_nonblank_lines {
+                        if !line.is_empty() {
+                            last_num += 1;
+                            println!("{:>6}\t{}", last_num, line);
+                        } else {
+                            println!();
+                        }
+                    } else {
+                        println!("{}", line);
+                    }
+                }
+            }
+        }
+    }
     Ok(())
 }
 
@@ -59,4 +86,11 @@ pub fn get_args() -> ErrorResult<Config> {
     };
 
     Ok(config)
+}
+
+fn open(filename: &str) -> ErrorResult<Box<dyn BufRead>> {
+    match filename {
+        "-" => Ok(Box::new(BufReader::new(io::stdin()))),
+        _ => Ok(Box::new(BufReader::new(File::open(filename)?))),
+    }
 }
